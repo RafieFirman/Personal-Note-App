@@ -12,7 +12,7 @@ function App() {
     <NotesProvider>
       <div className="app-container">
         <header>
-          <h1>Catatan Pribadi</h1>
+          <h1>NoteUR</h1>
           <nav className="navigation" aria-label="Navigasi utama">
             <ul>
               <li>
