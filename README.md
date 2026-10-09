@@ -77,6 +77,8 @@ npm run preview
 
 ```text
 Personal-Note-App/
+├── public/
+│   └── _redirects   # Fallback routing untuk React Router di Netlify
 ├── src/
 │   ├── context/       # State catatan dan autentikasi
 │   ├── lib/            # Integrasi Supabase
