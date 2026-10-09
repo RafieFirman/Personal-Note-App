@@ -42,12 +42,18 @@ function storeSession(session) {
   window.localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(session));
 }
 
-function getPublicHeaders(accessToken = SUPABASE_KEY) {
-  return {
+function getPublicHeaders(accessToken = null) {
+  const headers = {
     apikey: SUPABASE_KEY,
-    Authorization: `Bearer ${accessToken}`,
     'Content-Type': 'application/json',
   };
+
+  // Publishable keys belong in the apikey header; only a user session is a bearer token.
+  if (accessToken) {
+    headers.Authorization = `Bearer ${accessToken}`;
+  }
+
+  return headers;
 }
 
 async function parseResponse(response) {
@@ -74,7 +80,7 @@ async function parseResponse(response) {
   return payload;
 }
 
-async function authRequest(path, body, accessToken = SUPABASE_KEY) {
+async function authRequest(path, body, accessToken = null) {
   ensureConfiguration();
 
   const response = await fetch(`${SUPABASE_URL}/auth/v1/${path}`, {
