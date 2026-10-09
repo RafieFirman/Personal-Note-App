@@ -1,19 +1,19 @@
-# NoteUR: Personal Note App
+# NoteUR — Personal Note App
 
 **Live Demo:** [https://noteur.netlify.app](https://noteur.netlify.app)
 
-Aplikasi catatan pribadi berbasis React yang membantu pengguna membuat, membaca, mencari, mengarsipkan, dan menghapus catatan melalui antarmuka web sederhana.
+NoteUR adalah aplikasi catatan pribadi berbasis React untuk membantu pengguna menulis, melihat, mencari, mengarsipkan, dan menghapus catatan melalui antarmuka web yang sederhana.
 
 ## Fitur
 
-- **Daftar catatan:** menampilkan catatan aktif beserta judul, tanggal pembuatan, dan isi catatan.
-- **Detail catatan:** membuka satu catatan untuk melihat isi lengkapnya.
-- **Tambah catatan:** membuat catatan baru dengan judul dan isi.
-- **Hapus catatan:** menghapus catatan yang tidak lagi diperlukan.
-- **Arsip catatan:** memindahkan catatan ke arsip dan mengembalikannya ke daftar aktif.
-- **Pencarian:** mencari catatan berdasarkan judul.
-- **URL pencarian:** menyimpan kata kunci pencarian pada query parameter URL.
-- **Halaman 404:** menampilkan halaman khusus saat alamat yang dibuka tidak cocok dengan rute aplikasi.
+- **Catatan aktif:** melihat daftar catatan yang belum diarsipkan beserta judul, tanggal dibuat, dan ringkasan isi.
+- **Detail catatan:** membuka catatan tertentu untuk membaca isinya.
+- **Tambah catatan:** membuat catatan dengan mengisi judul dan isi melalui form.
+- **Hapus catatan:** menghapus catatan yang tidak diperlukan lagi.
+- **Arsip:** mengarsipkan catatan dan mengembalikannya ke daftar aktif.
+- **Pencarian:** menyaring catatan berdasarkan judul.
+- **Pencarian pada URL:** kata kunci pencarian disimpan sebagai query parameter sehingga dapat terlihat pada URL.
+- **Halaman 404:** menampilkan halaman khusus untuk rute yang tidak dikenali.
 
 ## Teknologi
 
@@ -23,13 +23,13 @@ Aplikasi catatan pribadi berbasis React yang membantu pengguna membuat, membaca,
 - JavaScript
 - CSS
 
-## Menjalankan Secara Lokal
+## Menjalankan Proyek di Lokal
 
 ### Prasyarat
 
-Pastikan [Node.js](https://nodejs.org/) dan npm sudah terpasang.
+Pastikan [Node.js](https://nodejs.org/) dan npm telah terpasang.
 
-### Instalasi
+### Langkah instalasi
 
 1. Clone repository:
 
@@ -43,7 +43,7 @@ Pastikan [Node.js](https://nodejs.org/) dan npm sudah terpasang.
    cd Personal-Note-App
    ```
 
-3. Pasang dependensi:
+3. Instal dependensi sesuai lockfile:
 
    ```bash
    npm ci
@@ -57,15 +57,15 @@ Pastikan [Node.js](https://nodejs.org/) dan npm sudah terpasang.
 
 5. Buka alamat lokal yang ditampilkan oleh Vite di terminal.
 
-## Build untuk Produksi
+## Build Produksi
 
-Untuk membuat build aplikasi, jalankan:
+Buat build aplikasi dengan perintah:
 
 ```bash
 npm run build
 ```
 
-Untuk melihat hasil build secara lokal:
+Untuk menjalankan pratinjau hasil build:
 
 ```bash
 npm run preview
@@ -76,7 +76,7 @@ npm run preview
 ```text
 Personal-Note-App/
 ├── public/       # Aset statis
-├── src/          # Komponen, halaman, konteks, utilitas, dan stylesheet
+├── src/          # Halaman, komponen, konteks, utilitas, dan stylesheet
 ├── index.html    # HTML utama aplikasi
 ├── package.json  # Dependensi dan scripts
 ├── package-lock.json
@@ -85,8 +85,8 @@ Personal-Note-App/
 
 ## Catatan
 
-Aplikasi ini merupakan proyek pembelajaran React. Catatan awal disediakan oleh data lokal aplikasi; repository ini tidak mendokumentasikan backend atau sinkronisasi data antarpengguna.
+NoteUR merupakan proyek pembelajaran React. Data catatan pada implementasi saat ini dikelola melalui data lokal aplikasi dan tidak menggunakan backend untuk sinkronisasi data antarpengguna.
 
 ## Lisensi
 
-Belum ada lisensi open-source yang ditetapkan pada repository ini. Hubungi pemilik repository sebelum menggunakan ulang kode di luar ketentuan yang berlaku.
+Repository ini belum menyertakan lisensi open-source. Silakan hubungi pemilik repository sebelum menggunakan ulang kode untuk kebutuhan lain.
