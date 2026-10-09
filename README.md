@@ -1,5 +1,7 @@
 # Personal Note App
 
+**Live Demo:** [https://noteur.netlify.app](https://noteur.netlify.app)
+
 Aplikasi catatan pribadi berbasis React yang membantu pengguna membuat, membaca, mencari, mengarsipkan, dan menghapus catatan melalui antarmuka web sederhana.
 
 ## Fitur
