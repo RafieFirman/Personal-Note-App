@@ -86,7 +86,8 @@ function addNote({ title, body }) {
     createdAt: createdAt.toISOString(),
   };
 
-  notes = [...notes, newNote];
+  // Put the newest note first so users can see it immediately on the home page.
+  notes = [newNote, ...notes];
 
   // Return a separate object so callers do not receive the internal reference.
   return { ...newNote };
