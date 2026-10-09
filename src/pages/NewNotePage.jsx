@@ -6,11 +6,13 @@ function NewNotePage() {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { addNote } = useNotes();
   const navigate = useNavigate();
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
+    if (isSubmitting) return;
 
     const trimmedTitle = title.trim();
     const trimmedBody = body.trim();
@@ -20,18 +22,31 @@ function NewNotePage() {
       return;
     }
 
-    const createdNote = addNote({
-      title: trimmedTitle,
-      body: trimmedBody,
-    });
+    setIsSubmitting(true);
+    setErrorMessage('');
 
-    if (!createdNote?.id) {
-      setErrorMessage('Catatan belum berhasil disimpan. Silakan coba lagi.');
-      return;
+    try {
+      const createdNote = await addNote({
+        title: trimmedTitle,
+        body: trimmedBody,
+      });
+
+      if (!createdNote?.id) {
+        setErrorMessage('Catatan belum berhasil disimpan. Silakan coba lagi.');
+        return;
+      }
+
+      // Only return to the list after the database/local save has succeeded.
+      navigate('/', { replace: true });
+    } catch (saveError) {
+      setErrorMessage(
+        saveError instanceof Error
+          ? `Catatan gagal disimpan: ${saveError.message}`
+          : 'Catatan gagal disimpan. Periksa koneksi dan konfigurasi database.'
+      );
+    } finally {
+      setIsSubmitting(false);
     }
-
-    // Return to the list so the newly created note is immediately visible.
-    navigate('/', { replace: true });
   }
 
   return (
@@ -57,6 +72,8 @@ function NewNotePage() {
             }}
             required
             autoComplete="off"
+            maxLength={200}
+            disabled={isSubmitting}
           />
 
           <label htmlFor="note-body">Isi catatan</label>
@@ -72,6 +89,8 @@ function NewNotePage() {
             }}
             rows={10}
             required
+            maxLength={50000}
+            disabled={isSubmitting}
           />
         </div>
 
@@ -82,10 +101,18 @@ function NewNotePage() {
         )}
 
         <div className="add-note-form__actions">
-          <button className="add-note-form__button add-note-form__button--primary" type="submit">
-            Simpan catatan
+          <button
+            className="add-note-form__button add-note-form__button--primary"
+            type="submit"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? 'Menyimpan...' : 'Simpan catatan'}
           </button>
-          <Link className="add-note-form__button add-note-form__button--secondary" to="/">
+          <Link
+            className="add-note-form__button add-note-form__button--secondary"
+            to="/"
+            aria-disabled={isSubmitting}
+          >
             Batal
           </Link>
         </div>
