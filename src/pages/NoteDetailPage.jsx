@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useNotes } from '../context/NotesContext.jsx';
 import { showFormattedDate } from '../utils/index.js';
@@ -7,26 +7,53 @@ function NoteDetailPage() {
   const { id } = useParams();
   const { notes, deleteNote, archiveNote, unarchiveNote } = useNotes();
   const navigate = useNavigate();
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const note = notes.find((item) => item.id === id);
 
-  function handleDelete() {
-    if (!note) return;
+  async function handleDelete() {
+    if (!note || isProcessing) return;
 
-    deleteNote(note.id);
-    navigate('/', { replace: true });
+    setIsProcessing(true);
+    setErrorMessage('');
+
+    try {
+      await deleteNote(note.id);
+      navigate('/', { replace: true });
+    } catch (deleteError) {
+      setErrorMessage(
+        deleteError instanceof Error
+          ? deleteError.message
+          : 'Catatan gagal dihapus. Silakan coba lagi.'
+      );
+    } finally {
+      setIsProcessing(false);
+    }
   }
 
-  function handleArchiveToggle() {
-    if (!note) return;
+  async function handleArchiveToggle() {
+    if (!note || isProcessing) return;
 
-    if (note.archived === true) {
-      unarchiveNote(note.id);
-      navigate('/', { replace: true });
-      return;
+    setIsProcessing(true);
+    setErrorMessage('');
+
+    try {
+      if (note.archived === true) {
+        await unarchiveNote(note.id);
+        navigate('/', { replace: true });
+      } else {
+        await archiveNote(note.id);
+        navigate('/archive', { replace: true });
+      }
+    } catch (archiveError) {
+      setErrorMessage(
+        archiveError instanceof Error
+          ? archiveError.message
+          : 'Status arsip gagal diperbarui. Silakan coba lagi.'
+      );
+    } finally {
+      setIsProcessing(false);
     }
-
-    archiveNote(note.id);
-    navigate('/archive', { replace: true });
   }
 
   if (!note) {
@@ -50,18 +77,27 @@ function NoteDetailPage() {
         Dibuat pada {showFormattedDate(note.createdAt)}
       </p>
       <p className="detail-page__body">{note.body}</p>
+
+      {errorMessage && (
+        <p className="add-note-form__error" role="alert">{errorMessage}</p>
+      )}
+
       <div className="detail-page__actions">
         <button
           className="add-note-form__button add-note-form__button--primary"
           type="button"
           onClick={handleArchiveToggle}
+          disabled={isProcessing}
         >
-          {note.archived === true ? 'Batal arsip' : 'Arsipkan catatan'}
+          {isProcessing
+            ? 'Memproses...'
+            : note.archived === true ? 'Batal arsip' : 'Arsipkan catatan'}
         </button>
         <button
           className="add-note-form__button add-note-form__button--danger"
           type="button"
           onClick={handleDelete}
+          disabled={isProcessing}
         >
           Hapus catatan
         </button>
