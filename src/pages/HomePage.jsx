@@ -16,7 +16,9 @@ function HomePage() {
 
   return (
     <section aria-labelledby="active-notes-heading">
-      <h2 id="active-notes-heading">Catatan Aktif</h2>
+      <h2 id="active-notes-heading">
+        Catatan Aktif <span className="notes-count">({activeNotes.length})</span>
+      </h2>
       <NoteSearch label="Cari catatan aktif" inputId="active-note-search" />
 
       {activeNotes.length === 0 ? (
