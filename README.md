@@ -1,70 +1,90 @@
-# Getting Started with Create React App
+# Personal Note App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Aplikasi catatan pribadi berbasis React yang membantu pengguna membuat, membaca, mencari, mengarsipkan, dan menghapus catatan melalui antarmuka web sederhana.
 
-## Available Scripts
+## Fitur
 
-In the project directory, you can run:
+- **Daftar catatan:** menampilkan catatan aktif beserta judul, tanggal pembuatan, dan isi catatan.
+- **Detail catatan:** membuka satu catatan untuk melihat isi lengkapnya.
+- **Tambah catatan:** membuat catatan baru dengan judul dan isi.
+- **Hapus catatan:** menghapus catatan yang tidak lagi diperlukan.
+- **Arsip catatan:** memindahkan catatan ke arsip dan mengembalikannya ke daftar aktif.
+- **Pencarian:** mencari catatan berdasarkan judul.
+- **URL pencarian:** menyimpan kata kunci pencarian pada query parameter URL.
+- **Halaman 404:** menampilkan halaman khusus saat alamat yang dibuka tidak cocok dengan rute aplikasi.
 
-### `npm start`
+## Teknologi
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- [React](https://react.dev/)
+- [React Router](https://reactrouter.com/)
+- [Vite](https://vite.dev/)
+- JavaScript
+- CSS
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Menjalankan Secara Lokal
 
-### `npm test`
+### Prasyarat
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Pastikan [Node.js](https://nodejs.org/) dan npm sudah terpasang.
 
-### `npm run build`
+### Instalasi
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Clone repository:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+   ```bash
+   git clone https://github.com/RafieFirman/Personal-Note-App.git
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. Masuk ke direktori proyek:
 
-### `npm run eject`
+   ```bash
+   cd Personal-Note-App
+   ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+3. Pasang dependensi:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+   ```bash
+   npm ci
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+4. Jalankan server pengembangan:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+   ```bash
+   npm run dev
+   ```
 
-## Learn More
+5. Buka alamat lokal yang ditampilkan oleh Vite di terminal.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Build untuk Produksi
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Untuk membuat build aplikasi, jalankan:
 
-### Code Splitting
+```bash
+npm run build
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Untuk melihat hasil build secara lokal:
 
-### Analyzing the Bundle Size
+```bash
+npm run preview
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Struktur Proyek
 
-### Making a Progressive Web App
+```text
+Personal-Note-App/
+├── public/       # Aset statis
+├── src/          # Komponen, halaman, konteks, utilitas, dan stylesheet
+├── index.html    # HTML utama aplikasi
+├── package.json  # Dependensi dan scripts
+├── package-lock.json
+└── vite.config.js
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Catatan
 
-### Advanced Configuration
+Aplikasi ini merupakan proyek pembelajaran React. Catatan awal disediakan oleh data lokal aplikasi; repository ini tidak mendokumentasikan backend atau sinkronisasi data antarpengguna.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Lisensi
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Belum ada lisensi open-source yang ditetapkan pada repository ini. Hubungi pemilik repository sebelum menggunakan ulang kode di luar ketentuan yang berlaku.
