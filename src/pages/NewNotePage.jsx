@@ -30,7 +30,8 @@ function NewNotePage() {
       return;
     }
 
-    navigate(`/notes/${encodeURIComponent(createdNote.id)}`);
+    // Return to the list so the newly created note is immediately visible.
+    navigate('/', { replace: true });
   }
 
   return (
