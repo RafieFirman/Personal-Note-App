@@ -1,4 +1,4 @@
-# Personal Note App
+# NoteUR Personal Note App
 
 **Live Demo:** [https://noteur.netlify.app](https://noteur.netlify.app)
 
