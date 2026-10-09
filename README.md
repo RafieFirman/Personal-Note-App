@@ -2,72 +2,74 @@
 
 **Live Demo:** [https://noteur.netlify.app](https://noteur.netlify.app)
 
-NoteUR adalah aplikasi catatan pribadi berbasis React untuk membantu pengguna menulis, melihat, mencari, mengarsipkan, dan menghapus catatan melalui antarmuka web yang sederhana.
+NoteUR adalah aplikasi catatan pribadi berbasis React. Aplikasi menyediakan daftar catatan aktif, detail catatan, pencarian, arsip, dan penghapusan. Dengan konfigurasi Supabase, pengguna dapat mendaftar dan masuk untuk menyimpan catatan ke database online.
 
 ## Fitur
 
-- **Catatan aktif:** melihat daftar catatan yang belum diarsipkan beserta judul, tanggal dibuat, dan ringkasan isi.
-- **Detail catatan:** membuka catatan tertentu untuk membaca isinya.
-- **Tambah catatan:** membuat catatan dengan mengisi judul dan isi melalui form.
-- **Hapus catatan:** menghapus catatan yang tidak diperlukan lagi.
-- **Arsip:** mengarsipkan catatan dan mengembalikannya ke daftar aktif.
-- **Pencarian:** menyaring catatan berdasarkan judul.
-- **Pencarian pada URL:** kata kunci pencarian disimpan sebagai query parameter sehingga dapat terlihat pada URL.
-- **Halaman 404:** menampilkan halaman khusus untuk rute yang tidak dikenali.
+- Membuat, membaca, mengarsipkan, membatalkan arsip, dan menghapus catatan.
+- Pencarian catatan berdasarkan judul dengan query parameter URL.
+- Login dan registrasi menggunakan email dan password Supabase Auth.
+- Penyimpanan catatan di PostgreSQL melalui Supabase.
+- Pembatasan data per pengguna menggunakan Row Level Security (RLS).
+- Halaman 404 dan tampilan status saat catatan sedang dimuat.
 
 ## Teknologi
 
-- [React](https://react.dev/)
-- [React Router](https://reactrouter.com/)
-- [Vite](https://vite.dev/)
-- JavaScript
-- CSS
+- React
+- React Router
+- Vite
+- Supabase Auth dan PostgreSQL
+- JavaScript dan CSS
 
-## Menjalankan Proyek di Lokal
+## Menyiapkan Supabase
 
-### Prasyarat
+Penyimpanan permanen aktif setelah kamu menghubungkan aplikasi ke project Supabase. Tanpa konfigurasi tersebut, aplikasi berjalan dalam **mode demo lokal** dan perubahan catatan tidak bertahan setelah halaman dimuat ulang.
 
-Pastikan [Node.js](https://nodejs.org/) dan npm telah terpasang.
+1. Buat project di [Supabase Dashboard](https://supabase.com/dashboard).
+2. Buka **SQL Editor** pada project tersebut, lalu jalankan seluruh isi file [`supabase/schema.sql`](./supabase/schema.sql). Skrip ini membuat tabel `public.notes` dan kebijakan RLS agar pengguna hanya dapat mengakses catatan miliknya.
+3. Buka pengaturan API/Connect pada project Supabase dan salin **Project URL** serta **publishable key**. Jangan gunakan service-role key di frontend.
+4. Salin file `.env.example` menjadi `.env.local`, lalu isi nilainya:
 
-### Langkah instalasi
-
-1. Clone repository:
-
-   ```bash
-   git clone https://github.com/RafieFirman/Personal-Note-App.git
+   ```env
+   VITE_SUPABASE_URL=https://your-project-id.supabase.co
+   VITE_SUPABASE_PUBLISHABLE_KEY=your-publishable-key
    ```
 
-2. Masuk ke direktori proyek:
-
-   ```bash
-   cd Personal-Note-App
-   ```
-
-3. Instal dependensi sesuai lockfile:
+5. Instal dependensi dan jalankan aplikasi:
 
    ```bash
    npm ci
-   ```
-
-4. Jalankan server pengembangan:
-
-   ```bash
    npm run dev
    ```
 
-5. Buka alamat lokal yang ditampilkan oleh Vite di terminal.
+6. Daftar melalui halaman NoteUR, lalu login. Jika project meminta konfirmasi email, buka email konfirmasi terlebih dahulu, kemudian login ke aplikasi.
 
-## Build Produksi
+## Konfigurasi Netlify
 
-Buat build aplikasi dengan perintah:
+Agar versi deploy menggunakan database online:
+
+1. Buka pengaturan site di Netlify dan cari **Environment variables**.
+2. Tambahkan `VITE_SUPABASE_URL` dan `VITE_SUPABASE_PUBLISHABLE_KEY` dengan nilai dari project Supabase yang sama.
+3. Jalankan deploy ulang agar variabel tersedia pada build frontend.
+4. Uji registrasi/login, pembuatan catatan, arsip, pembatalan arsip, dan penghapusan. Muat ulang halaman untuk memastikan perubahan tetap tersimpan.
+
+Publishable key memang digunakan di frontend. Keamanan data bergantung pada kebijakan RLS di database. Jangan pernah menambahkan service-role key atau password database ke file frontend maupun repository.
+
+## Menjalankan Secara Lokal
+
+Prasyarat: Node.js dan npm.
+
+```bash
+git clone https://github.com/RafieFirman/Personal-Note-App.git
+cd Personal-Note-App
+npm ci
+npm run dev
+```
+
+Untuk build produksi dan melihat pratinjaunya:
 
 ```bash
 npm run build
-```
-
-Untuk menjalankan pratinjau hasil build:
-
-```bash
 npm run preview
 ```
 
@@ -75,18 +77,19 @@ npm run preview
 
 ```text
 Personal-Note-App/
-├── public/       # Aset statis
-├── src/          # Halaman, komponen, konteks, utilitas, dan stylesheet
-├── index.html    # HTML utama aplikasi
-├── package.json  # Dependensi dan scripts
-├── package-lock.json
-└── vite.config.js
+├── src/
+│   ├── context/       # State catatan dan autentikasi
+│   ├── lib/            # Integrasi Supabase
+│   ├── pages/          # Halaman aplikasi dan autentikasi
+│   └── styles/         # Stylesheet
+├── supabase/
+│   └── schema.sql      # Tabel dan kebijakan RLS
+├── .env.example        # Template konfigurasi environment
+├── index.html
+├── package.json
+└── package-lock.json
 ```
-
-## Catatan
-
-NoteUR merupakan proyek pembelajaran React. Data catatan pada implementasi saat ini dikelola melalui data lokal aplikasi dan tidak menggunakan backend untuk sinkronisasi data antarpengguna.
 
 ## Lisensi
 
-Repository ini belum menyertakan lisensi open-source. Silakan hubungi pemilik repository sebelum menggunakan ulang kode untuk kebutuhan lain.
+Repository ini belum menyertakan lisensi open-source.
