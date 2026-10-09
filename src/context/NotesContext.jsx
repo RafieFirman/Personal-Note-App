@@ -13,11 +13,11 @@ import {
   unarchiveNote as unarchiveLocalNote,
 } from '../utils/local-data.js';
 import { createNotesSnapshot } from '../utils/notes-state.js';
-import { isSupabaseConfigured } from '../lib/supabaseApi.js';
 import {
   deleteNoteFromDatabase,
   fetchNotesFromDatabase,
   insertNoteIntoDatabase,
+  isSupabaseConfigured,
   setDatabaseNoteArchived,
 } from '../lib/supabaseApi.js';
 
@@ -33,7 +33,7 @@ export function NotesProvider({ children, user }) {
 
   const reloadNotes = useCallback(async () => {
     if (!isSupabaseConfigured) {
-      setLoadingSafely(setIsLoading, false);
+      setIsLoading(false);
       return;
     }
 
@@ -145,10 +145,6 @@ export function NotesProvider({ children, user }) {
       {children}
     </NotesContext.Provider>
   );
-}
-
-function setLoadingSafely(setter, value) {
-  setter(value);
 }
 
 export function useNotes() {
